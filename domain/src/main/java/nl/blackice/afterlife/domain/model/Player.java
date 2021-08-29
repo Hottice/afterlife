@@ -1,5 +1,6 @@
 package nl.blackice.afterlife.domain.model;
 
+import nl.blackice.afterlife.domain.model.exception.NoActionPointsException;
 import nl.blackice.afterlife.domain.model.exception.UnableToMoveException;
 import nl.blackice.afterlife.domain.model.util.MoveUtil;
 import nl.blackice.afterlife.domain.model.value.Direction;
@@ -20,13 +21,16 @@ public class Player {
         this.actionPoints = 3;
     }
 
-    public void move(Direction direction) throws UnableToMoveException {
+    public void move(Direction direction) throws UnableToMoveException, NoActionPointsException {
         TerritoryMap map = location.getTerritory().getMap();
         int moveToX = location.getX() + MoveUtil.getXAdjustmentForDirection(direction);
         int moveToY = location.getY() + MoveUtil.getYAdjustmentForDirection(direction);
-        TerritoryType territoryType = map.getLocation(moveToX, moveToY);
+        TerritoryType territoryType = map.getTerritoryTypeForLocation(moveToX, moveToY);
         if (!MoveUtil.ableToMoveOnTerritoryType(territoryType)) {
             throw new UnableToMoveException(name, direction);
+        }
+        if (actionPoints < 1) {
+            throw new NoActionPointsException(name, 1, actionPoints);
         }
         actionPoints -= 1;
         location = new Location(location.getTerritory(), moveToX, moveToY);

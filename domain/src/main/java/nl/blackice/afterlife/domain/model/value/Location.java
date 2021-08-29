@@ -2,6 +2,9 @@ package nl.blackice.afterlife.domain.model.value;
 
 import nl.blackice.afterlife.domain.model.Territory;
 
+/**
+ * Top left is 0,0
+ */
 public class Location {
     Territory territory;
     int x;

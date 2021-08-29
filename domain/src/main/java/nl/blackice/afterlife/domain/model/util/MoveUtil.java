@@ -15,8 +15,8 @@ public class MoveUtil {
     public static int getYAdjustmentForDirection(Direction direction) {
         return switch (direction) {
             case EAST, WEST -> 0;
-            case NORTH -> 1;
-            case SOUTH -> -1;
+            case NORTH -> -1;
+            case SOUTH -> 1;
         };
     }
 

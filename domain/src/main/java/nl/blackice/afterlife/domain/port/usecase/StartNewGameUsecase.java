@@ -15,7 +15,7 @@ public class StartNewGameUsecase {
     }
 
     public void startNewGame(String playerName) {
-        Size territoryBoundry = new Size(50, 50);
+        Size territoryBoundry = new Size(10, 10);
         World newWorld = createNewWorldPort.createNewWorld(new CreateNewWorldPort.CreationOptions(playerName, territoryBoundry));
         setWorldPort.setWorld(newWorld);
     }

@@ -9,6 +9,7 @@ public enum TerritoryType {
     CASTLE,
     VILLAGE,
     MINE,
+    PLAIN
     ;
 
     TerritoryType() {

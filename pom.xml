@@ -13,6 +13,8 @@
         <module>domain</module>
         <module>usecase</module>
         <module>starter/console</module>
+        <module>adapter/engine</module>
+        <module>adapter/ui-console</module>
     </modules>
 
     <properties>
@@ -30,6 +32,16 @@
             <dependency>
                 <groupId>nl.blackice.game</groupId>
                 <artifactId>usecase</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>nl.blackice.game</groupId>
+                <artifactId>engine</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>nl.blackice.game</groupId>
+                <artifactId>ui-console</artifactId>
                 <version>${project.version}</version>
             </dependency>
 
