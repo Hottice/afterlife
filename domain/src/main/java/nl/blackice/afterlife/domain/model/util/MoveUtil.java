@@ -1,7 +1,7 @@
 package nl.blackice.afterlife.domain.model.util;
 
 import nl.blackice.afterlife.domain.model.value.Direction;
-import nl.blackice.afterlife.domain.model.value.TerritoryType;
+import nl.blackice.afterlife.domain.model.value.MapLocationType;
 
 public class MoveUtil {
     public static int getXAdjustmentForDirection(Direction direction) {
@@ -20,8 +20,8 @@ public class MoveUtil {
         };
     }
 
-    public static boolean ableToMoveOnTerritoryType(TerritoryType territoryType) {
-        return switch (territoryType) {
+    public static boolean ableToMoveOnTerritoryType(MapLocationType mapLocationType) {
+        return switch (mapLocationType) {
             case NONE -> false;
             case WATER -> false;
             default -> true;

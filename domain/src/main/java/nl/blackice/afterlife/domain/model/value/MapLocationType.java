@@ -1,6 +1,6 @@
 package nl.blackice.afterlife.domain.model.value;
 
-public enum TerritoryType {
+public enum MapLocationType {
     NONE,
     FOREST,
     MOUNTAIN,
@@ -12,6 +12,6 @@ public enum TerritoryType {
     PLAIN
     ;
 
-    TerritoryType() {
+    MapLocationType() {
     }
 }

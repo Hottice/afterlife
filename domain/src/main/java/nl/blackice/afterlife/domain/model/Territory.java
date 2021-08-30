@@ -1,28 +1,19 @@
 package nl.blackice.afterlife.domain.model;
 
+import nl.blackice.afterlife.domain.model.value.MapLocation;
 import nl.blackice.afterlife.domain.model.value.Size;
-import nl.blackice.afterlife.domain.model.value.TerritoryMap;
+import nl.blackice.afterlife.domain.model.value.Map;
+import nl.blackice.afterlife.domain.model.value.WorldLocation;
 
-public class Territory {
-    private String name;
-    private Size boundry;
-    private TerritoryMap map;
+public class Territory extends WorldArea {
+    private final Size boundry;
 
-    public Territory(String name, Size boundry, TerritoryMap map) {
-        this.name = name;
+    public Territory(Size boundry, WorldLocation location, MapLocation entryLocation, Map map) {
+        super(location, entryLocation, map);
         this.boundry = boundry;
-        this.map = map;
-    }
-
-    public String getName() {
-        return name;
     }
 
     public Size getBoundry() {
         return boundry;
-    }
-
-    public TerritoryMap getMap() {
-        return map;
     }
 }

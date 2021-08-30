@@ -1,10 +1,12 @@
 package nl.blackice.afterlife.ui.console;
 
-import nl.blackice.afterlife.domain.model.value.TerritoryType;
+import nl.blackice.afterlife.domain.model.value.Map;
+import nl.blackice.afterlife.domain.model.value.MapLocationType;
+import nl.blackice.afterlife.domain.model.value.WorldMap;
 
 public class RenderUtil {
-    public static char getCharacterForType(TerritoryType territoryTypeForLocation) {
-        return switch(territoryTypeForLocation) {
+    public static char getCharacterForType(MapLocationType mapLocationTypeForLocation) {
+        return switch(mapLocationTypeForLocation) {
             case NONE -> ' ';
             case FOREST -> '%';
             case MOUNTAIN -> '^';

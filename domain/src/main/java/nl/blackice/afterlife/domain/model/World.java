@@ -1,61 +1,57 @@
 package nl.blackice.afterlife.domain.model;
 
-import nl.blackice.afterlife.domain.model.exception.PlayerWithNameDoesNotExistInGameException;
-import nl.blackice.afterlife.domain.model.exception.TerritoryWithNameDoesNotExistInGameException;
+import nl.blackice.afterlife.domain.model.exception.AreaNotFoundException;
+import nl.blackice.afterlife.domain.model.value.Size;
+import nl.blackice.afterlife.domain.model.value.WorldLocation;
 
-import java.util.Collection;
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 public class World {
-    private final Map<String, Player> players;
-    private final List<Player> playerTurnList;
-    private Player currentPlayersTurn;
+    private final Size boundry;
+    private final List<WorldArea> worldAreas;
+    private final List<WorldEntity> worldEntities = new ArrayList<>();
 
-    public World(Map<String, Player> players, List<Player> playerTurnList, Player currentPlayersTurn) {
-        this.players = players;
-        this.playerTurnList = playerTurnList;
-        this.currentPlayersTurn = currentPlayersTurn;
+    public World(Size boundry, List<WorldArea> worldAreas) {
+        this.boundry = boundry;
+        this.worldAreas = worldAreas;
     }
 
-    public Collection<Player> getPlayers() {
-        return players.values();
+    public void addWorldEntity(WorldEntity worldEntity) {
+        this.worldEntities.add(worldEntity);
     }
 
-    public Player getPlayerForName(String playerName) throws PlayerWithNameDoesNotExistInGameException {
-        if (!players.containsKey(playerName)) {
-            throw new PlayerWithNameDoesNotExistInGameException(playerName);
-        }
-        return players.get(playerName);
+    public void addAllWorldEntities(List<? extends WorldEntity> entities) {
+        this.worldEntities.addAll(entities);
     }
 
-    public boolean isPlayersTurn(Player player) {
-        return player.getName().equals(currentPlayersTurn.getName());
+    public List<WorldEntity> getWorldEntities() {
+        return worldEntities;
     }
 
-    public Player getCurrentPlayersTurn() {
-        return currentPlayersTurn;
+    public List<WorldArea> getWorldAreas() {
+        return worldAreas;
     }
 
-    public Territory getTerritoryWithName(String territoryName) throws TerritoryWithNameDoesNotExistInGameException {
-        for (Player player : players.values()) {
-            if (player.getTerritory().getName().equals(territoryName)) {
-                return player.getTerritory();
+    public Size getBoundry() {
+        return boundry;
+    }
+
+    public WorldArea findWorldArea(String worldAreaIdentifier) throws AreaNotFoundException {
+        for (WorldArea area : worldAreas) {
+            if (area.getIdentifier().equals(worldAreaIdentifier)) {
+                return area;
             }
         }
-        throw new TerritoryWithNameDoesNotExistInGameException(territoryName);
+        throw new AreaNotFoundException(worldAreaIdentifier);
     }
 
-    public Player nextPlayersTurn() {
-        int nextTurnIndex = playerTurnList.indexOf(currentPlayersTurn) + 1;
-        if (nextTurnIndex == playerTurnList.size()) {
-            nextTurnIndex = 0;
+    public WorldArea findWorldArea(WorldLocation location) throws AreaNotFoundException {
+        for (WorldArea area : worldAreas) {
+            if (area.getWorldLocation().equals(location)) {
+                return area;
+            }
         }
-        this.currentPlayersTurn = playerTurnList.get(nextTurnIndex);
-        return currentPlayersTurn;
-    }
-
-    public List<String> getPlayerTurnOrder() {
-        return playerTurnList.stream().map(Player::getName).toList();
+        throw new AreaNotFoundException(location);
     }
 }
